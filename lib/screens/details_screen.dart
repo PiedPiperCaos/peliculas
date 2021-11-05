@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/models/models.dart';
 import 'package:peliculas/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String movie = ModalRoute.of(context)!.settings.arguments.toString();
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
+    print(movie);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           _CustomAppBar(),
           SliverList(
-            delegate: SliverChildListDelegate(
-                [_PosterAndTitle(), _Overview(), _Overview(), CastingCards()]),
+            delegate: SliverChildListDelegate([
+              _PosterAndTitle(movie: movie),
+              _Overview(movie: movie),
+              CastingCards()
+            ]),
           ),
 
           //SliverFillRemaining(),
@@ -51,6 +56,10 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
+  final Movie movie;
+
+  const _PosterAndTitle({Key? key, required this.movie}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -104,12 +113,16 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final Movie movie;
+
+  const _Overview({Key? key, required this.movie}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Text(
-          "Esse minim veniam ex elit cillum. Ipsum enim occaecat excepteur Lorem laborum aute laboris magna. Duis officia excepteur consectetur est velit amet laboris tempor Excepteur pariatur magna excepteur id dolor culpa et elit minim voluptate cillum elit. Cillum nulla sunt aute nostrud pariatur irure in eiusmod anim commodo irure amet.. Culpa aute sit commodo occaecat elit ad nostrud sit ut mollit ea incididunt.",
+          "Esse minim veniam ex elit cillum. Ipsum enim occaecat excepteur Excepteur irure fugiat esse enim incididunt ipsum elit incididunt do. Voluptate incididunt ullamco cillum cupidatat est in enim duis amet ullamco ea culpa in pariatur. Exercitation labore esse ut duis magna cupidatat cupidatat consectetur duis nisi deserunt pariatur nulla adipisicing. Magna fugiat et amet ea ad. Id esse mollit eiusmod tempor qui irure velit veniam magna eaLabore non commodo magna laborum est laborum veniam nulla dolore ut magna dolor laborum. Sit commodo minim deserunt tempor adipisicing aliqua velit tempor amet Lorem. Ex non nisi in enim tempor labore reprehenderit minim in. Ex ad pariatur ex do commodo voluptate laboris occaecat est nisi minim id incididunt.Et minim eiusmod Lorem aliquip proident sunt aliqua ea anim. Ut enim ut consequat minim. Aliquip laboris magna enim ut. Sit duis fugiat consequat do qui qui fugiat culpa. Laborum labore labore non ipsum enim deserunt reprehenderit. Lorem laborum aute laboris magna. Duis officia excepteur consectetur est velit amet laboris tempor Excepteur pariatur magna excepteur id dolor culpa et elit minim voluptate cillum elit. Cillum nulla sunt aute nostrud pariatur irure in eiusmod anim commodo irure amet.. Culpa aute sit commodo occaecat elit ad nostrud sit ut mollit ea incididunt.",
           style: Theme.of(context).textTheme.subtitle1,
           textAlign: TextAlign.justify,
         ));
